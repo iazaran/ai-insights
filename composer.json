@@ -1,0 +1,45 @@
+{
+    "name": "iazaran/ai-insights",
+    "description": "Using Open AI to analyze data and receive insights to improve specific areas of your business",
+    "keywords": [
+        "ai-insights",
+        "ai insights laravel",
+        "ai data analysis",
+        "laravel package"
+    ],
+    "homepage": "https://github.com/iazaran/ai-insights",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "support": {
+        "issues": "https://github.com/iazaran/ai-insights/issues",
+        "source": "https://github.com/iazaran/ai-insights"
+    },
+    "authors": [
+        {
+            "name": "Ismael Azaran",
+            "email": "eazaran@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "guzzlehttp/guzzle": "^7.0",
+        "laravel/framework": "^11.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AIInsights\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AIInsights\\Providers\\AIInsightsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
