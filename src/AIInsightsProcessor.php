@@ -154,11 +154,35 @@ class AIInsightsProcessor
         $chatPrompt = $basePrompt . $promptData . "\nBased on the provided business type, goal, and data samples, please provide insights and recommendations to improve the business.";
 
         // Generate the image prompt
-        $imagePrompt = "Create a chart or graph visualizing the following business data and insights:\n\n" . $basePrompt . $promptData;
+        $imagePromptData = $this->truncatePromptData($promptData, 3999 - strlen($basePrompt));
+        $imagePrompt = "Create a chart or graph visualizing the following business data and insights:\n\n" . $basePrompt . $imagePromptData;
 
         return [
             'chat_prompt' => $chatPrompt,
             'image_prompt' => $imagePrompt
         ];
+    }
+
+    /**
+     * Truncate the prompt data to fit within a specified character limit.
+     *
+     * @param string $promptData The original prompt data
+     * @param int $limit The character limit
+     * @return string The truncated prompt data
+     */
+    protected function truncatePromptData(string $promptData, int $limit): string
+    {
+        if (strlen($promptData) <= $limit) {
+            return $promptData;
+        }
+
+        $truncated = substr($promptData, 0, $limit);
+        $lastNewline = strrpos($truncated, "\n");
+
+        if ($lastNewline !== false) {
+            $truncated = substr($truncated, 0, $lastNewline);
+        }
+
+        return $truncated . "\n[Truncated due to length limitations]";
     }
 }
