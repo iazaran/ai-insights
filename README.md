@@ -42,12 +42,6 @@ $limit = 3;
 $insights = AIInsightsProcessor::analyze($businessType, $goal, $tables, $limit);
 ```
 
-You can also use the `AIInsights` class directly to send a custom prompt to the AI service.
-
-```php
-$prompt = 'What is the best way to increase sales?';
-$insights = AIInsights::sendRequest($prompt);
-```
 
 And sample response can be like this:
 
