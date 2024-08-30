@@ -49,7 +49,6 @@ class AIInsightsProcessor
         return $instance->processAnalysis($businessType, $goal, $tables, $limit);
     }
 
-
     /**
      * Process the analysis request.
      *
@@ -64,11 +63,11 @@ class AIInsightsProcessor
         // Fetch data samples from the specified tables
         $dataSamples = $this->fetchDataSamples($tables, $limit);
 
-        // Generate the AI prompt based on business type, goal, and data samples
-        $prompt = $this->generatePrompt($businessType, $goal, $dataSamples);
+        // Generate the AI prompts based on business type, goal, and data samples
+        $prompts = $this->generatePrompts($businessType, $goal, $dataSamples);
 
-        // Send the generated prompt to the AI service and return the response
-        return self::getAIInsights()->sendRequest($prompt);
+        // Send the generated prompts to the AI service and return the response
+        return self::getAIInsights()->sendRequest($prompts);
     }
 
     /**
@@ -131,29 +130,35 @@ class AIInsightsProcessor
     }
 
     /**
-     * Generate the AI prompt based on business type, goal, and data samples.
+     * Generate the AI prompts based on business type, goal, and data samples.
      *
      * @param string $businessType The type of business
      * @param string $goal The business goal
      * @param array $dataSamples The sampled data from database tables in CSV-like format
-     * @return string The generated prompt for AI analysis
+     * @return array The generated prompts for AI analysis and image generation
      */
-    protected function generatePrompt(string $businessType, string $goal, array $dataSamples): string
+    protected function generatePrompts(string $businessType, string $goal, array $dataSamples): array
     {
         // Start the prompt with business type and goal
-        $prompt = "Business Type: $businessType\n";
-        $prompt .= "Goal: $goal\n\n";
-        $prompt .= "Data Samples:\n";
+        $basePrompt = "Business Type: $businessType\n";
+        $basePrompt .= "Goal: $goal\n\n";
+        $promptData = "Data Samples:\n";
 
         // Add each table's data to the prompt
         foreach ($dataSamples as $table => $data) {
-            $prompt .= "Table: $table\n";
-            $prompt .= $data . "\n";
+            $promptData .= "Table: $table\n";
+            $promptData .= $data . "\n";
         }
 
-        // Add the final instruction for the AI
-        $prompt .= "\nBased on the provided business type, goal, and data samples, please provide insights and recommendations to improve the business.";
+        // Generate the chat prompt
+        $chatPrompt = $basePrompt . $promptData . "\nBased on the provided business type, goal, and data samples, please provide insights and recommendations to improve the business.";
 
-        return $prompt;
+        // Generate the image prompt
+        $imagePrompt = "Create a chart or graph visualizing the following business data and insights:\n\n" . $basePrompt . $promptData;
+
+        return [
+            'chat_prompt' => $chatPrompt,
+            'image_prompt' => $imagePrompt
+        ];
     }
 }
