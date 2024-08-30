@@ -155,7 +155,7 @@ class AIInsightsProcessor
 
         // Generate the image prompt
         $imagePromptData = $this->truncatePromptData($promptData, 3999 - strlen($basePrompt));
-        $imagePrompt = "Create a chart or graph visualizing the following business data and insights:\n\n" . $basePrompt . $imagePromptData;
+        $imagePrompt = "Create a chart for the following business data and insights:\n\n" . $basePrompt . $imagePromptData;
 
         return [
             'chat_prompt' => $chatPrompt,
