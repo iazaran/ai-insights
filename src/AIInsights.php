@@ -108,12 +108,12 @@ class AIInsights
 
         // Add organization ID to headers if it's set
         if (self::$organization) {
-            $headers['X-Organization-ID'] = self::$organization;
+            $headers['OpenAI-Organization'] = self::$organization;
         }
 
         // Add project ID to headers if it's set
         if (self::$project) {
-            $headers['X-Project-ID'] = self::$project;
+            $headers['OpenAI-Project'] = self::$project;
         }
 
         // Send a POST request to the OpenAI API
