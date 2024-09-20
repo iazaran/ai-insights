@@ -15,56 +15,77 @@ class AIInsights
     protected static Client $client;
 
     /**
-     * The OpenAI API key.
+     * The base URL for the AI API.
+     *
+     * @var string
+     */
+    protected static string $baseUrl;
+
+    /**
+     * The path for chat completions.
+     *
+     * @var string
+     */
+    protected static string $chatPath;
+
+    /**
+     * The path for image generations.
+     *
+     * @var string
+     */
+    protected static string $imagePath;
+
+    /**
+     * The AI API key.
      *
      * @var string
      */
     protected static mixed $apiKey;
 
     /**
-     * The OpenAI organization ID.
+     * The AI organization ID.
      *
      * @var string|null
      */
     protected static mixed $organization;
 
     /**
-     * The OpenAI project ID.
+     * The AI project ID.
      *
      * @var string|null
      */
     protected static mixed $project;
 
     /**
-     * The OpenAI model to use.
+     * The AI model to use.
      *
      * @var string
      */
-    protected static mixed $model;
+    protected static mixed $chatModel;
 
     /**
-     * The OpenAI model to use for image creation.
+     * The AI model to use for image creation.
      *
      * @var string
      */
     protected static mixed $imageModel;
 
     /**
-     * The maximum number of tokens for the OpenAI response.
+     * The maximum number of tokens for the AI response.
      *
      * @var int
      */
     protected static mixed $maxTokens;
 
     /**
-     * The temperature setting for the OpenAI API.
+     * The temperature setting for the AI API.
      *
      * @var float
      */
     protected static mixed $temperature;
 
     /**
-     * The image size for the OpenAI API.
+     * The image size for the AI API.
      *
      * @var string
      */
@@ -81,18 +102,21 @@ class AIInsights
         self::$client = new Client();
 
         // Set the API key, model and max tokens from the configuration
-        self::$apiKey = config('ai-insights.openai_api_key');
-        self::$organization = config('ai-insights.openai_organization');
-        self::$project = config('ai-insights.openai_project');
-        self::$model = config('ai-insights.openai_model');
-        self::$imageModel = config('ai-insights.openai_image_model');
-        self::$maxTokens = config('ai-insights.openai_max_tokens');
-        self::$temperature = config('ai-insights.openai_temperature');
-        self::$imageSize = config('ai-insights.openai_image_size');
+        self::$baseUrl = config('ai-insights.ai_base_url');
+        self::$chatPath = config('ai-insights.ai_chat_path');
+        self::$imagePath = config('ai-insights.ai_image_path');
+        self::$apiKey = config('ai-insights.api_key');
+        self::$organization = config('ai-insights.organization');
+        self::$project = config('ai-insights.project');
+        self::$chatModel = config('ai-insights.chat_model');
+        self::$imageModel = config('ai-insights.image_model');
+        self::$maxTokens = config('ai-insights.max_tokens');
+        self::$temperature = config('ai-insights.temperature');
+        self::$imageSize = config('ai-insights.image_size');
     }
 
     /**
-     * Send a request to the OpenAI API.
+     * Send a request to the AI API.
      *
      * @param array $prompts The input prompts for the AI model.
      * @return array The decoded JSON response from the API.
@@ -108,19 +132,19 @@ class AIInsights
 
         // Add organization ID to headers if it's set
         if (self::$organization) {
-            $headers['OpenAI-Organization'] = self::$organization;
+            $headers['AI-Organization'] = self::$organization;
         }
 
         // Add project ID to headers if it's set
         if (self::$project) {
-            $headers['OpenAI-Project'] = self::$project;
+            $headers['AI-Project'] = self::$project;
         }
 
-        // Send a POST request to the OpenAI API
-        $chatResponse = self::$client->post('https://api.openai.com/v1/chat/completions', [
+        // Send a POST request to the AI API
+        $chatResponse = self::$client->post(self::$baseUrl . self::$chatPath, [
             'headers' => $headers,
             'json' => [
-                'model' => self::$model,
+                'model' => self::$chatModel,
                 'messages' => [
                     [
                         'role' => 'system',
@@ -136,8 +160,8 @@ class AIInsights
             ],
         ]);
 
-        // Send a POST request to the OpenAI API for image generation
-        $imageResponse = self::$client->post('https://api.openai.com/v1/images/generations', [
+        // Send a POST request to the AI API for image generation
+        $imageResponse = self::$client->post(self::$baseUrl . self::$imagePath, [
             'headers' => $headers,
             'json' => [
                 'model' => self::$imageModel,

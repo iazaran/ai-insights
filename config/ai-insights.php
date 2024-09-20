@@ -14,75 +14,108 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | OpenAI API Key
+    | AI Base URL
     |--------------------------------------------------------------------------
     |
-    | This key is used to authenticate requests to the OpenAI API.
+    | This setting specifies the base URL for the AI service.
+    | You can set this in your .env file to point to your AI service.
+    |
+    */
+    'ai_base_url' => env('AI_BASE_URL', 'https://api.openai.com/v1'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | AI Chat Path
+    |--------------------------------------------------------------------------
+    |
+    | This setting specifies the path for the chat endpoint of the AI service.
+    | You can set this in your .env file to point to the chat endpoint.
+    |
+    */
+    'ai_chat_path' => env('AI_CHAT_PATH', '/chat/completions'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | AI Image Path
+    |--------------------------------------------------------------------------
+    |
+    | This setting specifies the path for the image generation endpoint of the AI service.
+    | You can set this in your .env file to point to the image generation endpoint.
+    |
+    */
+    'ai_image_path' => env('AI_IMAGE_PATH', '/images/generations'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | AI API Key
+    |--------------------------------------------------------------------------
+    |
+    | This key is used to authenticate requests to the AI API.
     | It should be set in your .env file for security.
     |
     */
-    'openai_api_key' => env('OPENAI_API_KEY', null),
+    'ai_api_key' => env('AI_API_KEY', null),
 
     /*
     |--------------------------------------------------------------------------
-    | OpenAI Organization ID
+    | AI Organization ID
     |--------------------------------------------------------------------------
     |
-    | This is the organization ID for your OpenAI account. It's used to
+    | This is the organization ID for your AI account. It's used to
     | associate API requests with your organization. You can find this
-    | in your OpenAI account settings. Set it in your .env file.
+    | in your AI account settings. Set it in your .env file.
     |
     */
-    'openai_organization' => env('OPENAI_ORGANIZATION', null),
+    'ai_organization' => env('AI_ORGANIZATION', null),
 
     /*
     |--------------------------------------------------------------------------
-    | OpenAI Project
+    | AI Project
     |--------------------------------------------------------------------------
     |
-    | This setting specifies the OpenAI project to be used for generating insights.
+    | This setting specifies the AI project to be used for generating insights.
     | You can set this in your .env file to associate requests with a specific project.
     |
     */
-    'openai_project' => env('OPENAI_PROJECT', null),
+    'ai_project' => env('AI_PROJECT', null),
 
     /*
     |--------------------------------------------------------------------------
-    | OpenAI Model
+    | AI Model
     |--------------------------------------------------------------------------
     |
-    | This setting specifies the OpenAI model to be used for generating insights.
+    | This setting specifies the AI model to be used for generating insights.
     | You can change this in your .env file to use different models as needed.
     |
     */
-    'openai_model' => env('OPENAI_MODEL', 'gpt-4o-mini'),
+    'ai_chat_model' => env('AI_CHAT_MODEL', 'gpt-4o-mini'),
 
     /*
     |--------------------------------------------------------------------------
-    | OpenAI Image Model
+    | AI Image Model
     |--------------------------------------------------------------------------
     |
-    | This setting specifies the OpenAI model to be used for generating images.
+    | This setting specifies the AI model to be used for generating images.
     | You can change this in your .env file to use different image models as needed.
     |
     */
-    'openai_image_model' => env('OPENAI_IMAGE_MODEL', 'dall-e-3'),
+    'ai_image_model' => env('AI_IMAGE_MODEL', 'dall-e-3'),
 
     /*
     |--------------------------------------------------------------------------
-    | OpenAI Max Tokens
+    | AI Max Tokens
     |--------------------------------------------------------------------------
     |
     | This setting specifies the maximum number of tokens to be generated
-    | in the response from the OpenAI API. You can adjust this value
+    | in the response from the AI API. You can adjust this value
     | based on your needs for response length and API usage.
     |
     */
-    'openai_max_tokens' => env('OPENAI_MAX_TOKENS', 150),
+    'ai_max_tokens' => env('AI_MAX_TOKENS', 150),
 
     /*
     |--------------------------------------------------------------------------
-    | OpenAI Temperature
+    | AI Temperature
     |--------------------------------------------------------------------------
     |
     | This setting controls the randomness of the AI's output. Values closer to 0
@@ -91,7 +124,7 @@ return [
     | which provides a balance between coherence and creativity.
     |
     */
-    'openai_temperature' => env('OPENAI_TEMPERATURE', 0.7),
+    'ai_temperature' => env('AI_TEMPERATURE', 0.7),
 
     /*
     |--------------------------------------------------------------------------
@@ -106,13 +139,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | OpenAI Image Size
+    | AI Image Size
     |--------------------------------------------------------------------------
     |
-    | This setting specifies the size of the image to be generated by the OpenAI API.
+    | This setting specifies the size of the image to be generated by the AI API.
     | It can be overridden when calling the analyze method.
     |
     */
-    'openai_image_size' => env('OPENAI_IMAGE_SIZE', '1024x1024'),
+    'ai_image_size' => env('AI_IMAGE_SIZE', '1024x1024'),
 
 ];
