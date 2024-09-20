@@ -1,5 +1,5 @@
 # AI Insights
-Using Open AI to analyze data and receive insights and charts to improve specific areas of your business.
+Using AI LLMs to analyze data and receive insights and charts to improve specific areas of your business. The default LLM is OpenAI, but you can use any other LLMs.
 
 ## Requirements
 - PHP >=8.1
@@ -21,15 +21,18 @@ php artisan vendor:publish --provider="AIInsights\Providers\AIInsightsServicePro
 Set .env configuration. You can get your OpenAI API key [here](https://platform.openai.com/account/api-keys). Others are optional.
 
 ```bash
-OPENAI_API_KEY=""
-OPENAI_ORGANIZATION=""
-OPENAI_PROJECT=""
-OPENAI_MODEL=""
-OPENAI_IMAGE_MODEL=""
-OPENAI_MAX_TOKENS=""
-OPENAI_TEMPERATURE=""
+AI_BASE_URL=""
+AI_CHAT_PATH=""
+AI_IMAGE_PATH=""
+AI_API_KEY=""
+AI_ORGANIZATION=""
+AI_PROJECT=""
+AI_MODEL=""
+AI_IMAGE_MODEL=""
+AI_MAX_TOKENS=""
+AI_TEMPERATURE=""
 AI_INSIGHTS_DEFAULT_GOAL=""
-OPENAI_IMAGE_SIZE=""
+AI_IMAGE_SIZE=""
 ```
 
 Use the `AIInsightsProcessor` class to analyze your data. As default, it will use your last rows in DB
@@ -38,12 +41,12 @@ Use the `AIInsightsProcessor` class to analyze your data. As default, it will us
 $businessType = 'Retail';
 $goal = 'Increase sales';
 $tables = ['orders', 'products'];
-$limit = 3;
+$limit = 5;
 $insights = AIInsightsProcessor::analyze($businessType, $goal, $tables, $limit);
 ```
 
 
-And sample response can be like this:
+And sample response can be like this, if you are using OpenAI:
 
 ```php
 [
